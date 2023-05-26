@@ -1,0 +1,57 @@
+<IfModule mod_rewrite.c>
+    <IfModule mod_negotiation.c>
+        Options -MultiViews -Indexes
+    </IfModule>
+
+    RewriteEngine On
+
+    # Handle Authorization Header
+    RewriteCond %{HTTP:Authorization} .
+    RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+
+    # Redirect Trailing Slashes If Not A Folder...
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_URI} (.+)/$
+    RewriteRule ^ %1 [L,R=301]
+
+    # Send Requests To Front Controller...
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^ index.php [L]
+</IfModule>
+
+# Disable directory browsing
+
+Options -Indexes
+
+# Prevent access to .htaccess and .htpasswd files
+
+<FilesMatch "^\.ht">
+Order Allow,Deny
+Deny from all
+</FilesMatch>
+
+# Prevent access to PHP configuration files
+
+<FilesMatch "^(php\.ini|php\.cgi|\.user\.ini)">
+Order Deny,Allow
+Deny from all
+</FilesMatch>
+
+# Protect sensitive files
+
+<FilesMatch "^(config\.php|database\.db)$">
+Order Deny,Allow
+Deny from all
+</FilesMatch>
+
+# Block access to specific file extensions
+
+<FilesMatch "\.(bak|config|sql|fla|psd|ini|log|sh|inc|swp|dist|old|mdb|json|pl)$">
+Order Allow,Deny
+Deny from all
+</FilesMatch>
+
+# Disable server signature
+
+ServerSignature Off
