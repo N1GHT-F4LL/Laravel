@@ -8,7 +8,6 @@ use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
-
 class AuthController extends Controller
 {
     public function showLoginForm()
@@ -22,27 +21,31 @@ class AuthController extends Controller
             'username' => 'required',
             'password' => 'required',
         ]);
-    
+
         $attemptCredentials = [
             'username' => $credentials['username'],
             'password' => $credentials['password'],
         ];
-    
+
         $validator = Validator::make($attemptCredentials, [
             'username' => ['required', Rule::exists('users')],
             'password' => 'required',
         ]);
-    
+
         if ($validator->fails()) {
-            return redirect()->back()->withErrors(['error' => 'Invalid login credentials']);
+            return redirect()
+                ->back()
+                ->withErrors(['error' => 'Invalid login credentials']);
         }
-    
+
         if (Auth::attempt($attemptCredentials)) {
             return redirect()->route('home');
         } else {
-            return redirect()->back()->withErrors(['error' => 'Invalid login credentials']);
+            return redirect()
+                ->back()
+                ->withErrors(['error' => 'Invalid login credentials']);
         }
-    }    
+    }
 
     public function showSignupForm()
     {
@@ -60,8 +63,9 @@ class AuthController extends Controller
             'role' => 'required|in:admin,teacher,student',
         ]);
 
-        dd($request->all());
-        
+        //for debug reason
+        //dd($request->all());
+
         // Create new user
         $user = User::create([
             'username' => $request->input('username'),
