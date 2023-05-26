@@ -13,13 +13,8 @@ use App\Http\Controllers\AuthController;
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group. Now create something great!
 |
+
 */
-
-Route::get('/', function () {
-    //return view('welcome');
-    return view('home');
-});
-
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login'])->name('login.post');
