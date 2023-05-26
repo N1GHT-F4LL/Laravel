@@ -11,14 +11,6 @@
 <body>
     <h1>Home Page</h1>
     <h2>Wellcome</h2>
-    <footer>
-        <p>Author: N1ghtf4ll</p>
-        <p>
-            <a href="mailto:n1ghtf4ll.work@gmail.com">
-                n1ghtf4ll.work@gmail.com
-            </a>
-        </p>
-    </footer>
 </body>
 
 </html>
