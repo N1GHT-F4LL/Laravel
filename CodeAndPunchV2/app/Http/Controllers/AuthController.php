@@ -80,9 +80,10 @@ class AuthController extends Controller
 
         // Login the user
         Auth::login($user);
-
+        Log::info('xác thực user');
         // Redirect to home page
         return redirect()->route('home');
+        Log::info('Homepage');
     }
 
     public function logout()
