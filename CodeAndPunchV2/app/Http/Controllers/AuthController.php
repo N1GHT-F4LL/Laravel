@@ -61,21 +61,26 @@ class AuthController extends Controller
         // Validate signup data
         Log::info('Đã gọi phương thức signup');
         ///////////////////////////////////
-        $this->validate($request, [
-            'username' => 'required|unique:users',
-            'password' => 'required|min:6',
-            'role' => 'required|in:admin,teacher,student',
-        ]);
-
+        try {
+            $this->validate($request, [
+                'username' => 'required|unique:users',
+                'password' => 'required|min:6',
+                'role' => 'required|in:admin,teacher,student',
+            ]);
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            Log::error('Validation failed: ' . $e->getMessage());
+            // Thực hiện xử lý ngoại lệ (nếu cần)
+        }
+        Log::info('validate');
         // Create new user
         $user = User::create([
             'username' => $request->input('username'),
             'password' => Hash::make($request->input('password')),
             'role' => $request->input('role'),
         ]);
-
+        Log::info('create user');
         // Set the default name to username
-        $user->name = $user->username;
+        $user->full_name = $user->username;
         $user->save();
 
         // Login the user

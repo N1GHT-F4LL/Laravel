@@ -12,16 +12,31 @@ class CreateUsersTable extends Migration
             $table->id();
             $table->string('username')->unique();
             $table->string('password');
-            $table->string('full_name');
-            $table->string('email')->unique();
-            $table->string('phone');
-            $table->enum('role', ['student', 'teacher', 'admin']);
+            $table
+                ->string('full_name')
+                ->default('')
+                ->nullable();
+            $table
+                ->string('email')
+                ->nullable()
+                ->change();
+            $table
+                ->string('phone')
+                ->default('')
+                ->nullable();
+            $table->enum('role', ['student', 'teacher', 'admin'])->default('student');
             $table->timestamps();
         });
     }
 
     public function down()
     {
+        Schema::table('users', function (Blueprint $table) {
+            $table
+                ->string('email')
+                ->nullable(false)
+                ->change();
+        });
         Schema::dropIfExists('users');
     }
 }
