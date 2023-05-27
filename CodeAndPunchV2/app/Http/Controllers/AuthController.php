@@ -56,29 +56,22 @@ class AuthController extends Controller
     public function signup(Request $request)
     {
         // Validate signup data
-        $validator = Validator::make($request->all(), [
+        $this->validate($request, [
             'username' => 'required|unique:users',
             'password' => 'required|min:6',
-            'email' => 'required|email|unique:users',
-            'phone' => 'required',
             'role' => 'required|in:admin,teacher,student',
         ]);
-
-        if ($validator->fails()) {
-            return redirect()
-                ->back()
-                ->withErrors($validator)
-                ->withInput();
-        }
 
         // Create new user
         $user = User::create([
             'username' => $request->input('username'),
             'password' => Hash::make($request->input('password')),
-            'email' => $request->input('email'),
-            'phone' => $request->input('phone'),
             'role' => $request->input('role'),
         ]);
+
+        // Set the default name to username
+        $user->name = $user->username;
+        $user->save();
 
         // Login the user
         Auth::login($user);
