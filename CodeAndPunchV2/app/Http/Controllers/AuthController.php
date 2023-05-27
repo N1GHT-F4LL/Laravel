@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
@@ -55,7 +56,7 @@ class AuthController extends Controller
     public function signup(Request $request)
     {
         // Validate signup data
-        $this->validate($request, [
+        $validator = Validator::make($request->all(), [
             'username' => 'required|unique:users',
             'password' => 'required|min:6',
             'email' => 'required|email|unique:users',
@@ -63,7 +64,12 @@ class AuthController extends Controller
             'role' => 'required|in:admin,teacher,student',
         ]);
 
-        dd($request->all());
+        if ($validator->fails()) {
+            return redirect()
+                ->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
 
         // Create new user
         $user = User::create([
