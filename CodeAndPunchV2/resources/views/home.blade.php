@@ -9,7 +9,7 @@
 </head>
 
 <body>
-    <h1>Welcome to the Home Page</h1>
+    <h1>Team 1</h1>
 
     @if (Auth::check())
         <p>Welcome, {{ Auth::user()->full_name }}!</p>

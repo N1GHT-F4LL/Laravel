@@ -18,9 +18,13 @@
 
         <button type="submit" class="btn btn-primary">Log In</button>
     </form>
-    @if ($errors->has('error'))
+    @if ($errors->any())
         <div class="alert alert-danger">
-            {{ $errors->first('error') }}
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
         </div>
     @endif
 @endsection

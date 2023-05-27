@@ -35,9 +35,24 @@ class AuthController extends Controller
         ]);
 
         if ($validator->fails()) {
+            $errors = $validator->errors();
+
+            if ($errors->has('password')) {
+                $passwordErrors = $errors->get('password');
+
+                foreach ($passwordErrors as $passwordError) {
+                    if ($passwordError === 'The password must be at least 6 characters.') {
+                        $errors->add('password', 'The password must be at least 6 characters and meet the required format.');
+                    } elseif ($passwordError === 'The password format is invalid.') {
+                        $errors->add('password', 'The password must contain at least one uppercase letter, one lowercase letter, one digit, and one special character.');
+                    }
+                }
+            }
+
             return redirect()
                 ->back()
-                ->withErrors(['error' => 'Invalid login credentials']);
+                ->withErrors($errors)
+                ->withInput();
         }
 
         if (Auth::attempt($attemptCredentials)) {
@@ -56,39 +71,40 @@ class AuthController extends Controller
 
     public function signup(Request $request)
     {
-        //nfconfig
-        //dd($request->all());
-        // Validate signup data
-        Log::info('Đã gọi phương thức signup');
-        ///////////////////////////////////
         try {
-            $this->validate($request, [
+            $request->validate([
                 'username' => 'required|unique:users',
-                'password' => 'required|min:6',
+                'password' => ['required', 'min:6', 'regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/'],
                 'role' => 'required|in:admin,teacher,student',
             ]);
         } catch (\Illuminate\Validation\ValidationException $e) {
             Log::error('Validation failed: ' . $e->getMessage());
-            // Thực hiện xử lý ngoại lệ (nếu cần)
+            // Xử lý ngoại lệ validation nếu cần thiết
+            // Ví dụ: Đưa ra thông báo lỗi cho người dùng
+            return redirect()
+                ->back()
+                ->withErrors($e->errors())
+                ->withInput();
         }
-        Log::info('validate');
-        // Create new user
+
+        // Tiếp tục xử lý khi dữ liệu đã được validate
+
+        // Tạo người dùng mới
         $user = User::create([
             'username' => $request->input('username'),
             'password' => Hash::make($request->input('password')),
             'role' => $request->input('role'),
         ]);
-        Log::info('create user');
-        // Set the default name to username
+
+        // Gán giá trị mặc định cho full_name
         $user->full_name = $user->username;
         $user->save();
 
-        // Login the user
+        // Đăng nhập người dùng
         Auth::login($user);
-        Log::info('xác thực user');
-        // Redirect to home page
+
+        // Chuyển hướng đến trang chủ
         return redirect()->route('home');
-        Log::info('Homepage');
     }
 
     public function logout()
