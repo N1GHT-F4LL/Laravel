@@ -209,7 +209,8 @@ return [
 
     'aliases' => Facade::defaultAliases()
         ->merge([
-            // 'ExampleClass' => App\Example\ExampleClass::class,
+            //nf config
+            'Debugbar' => Barryvdh\Debugbar\Facade::class,
         ])
         ->toArray(),
 ];
