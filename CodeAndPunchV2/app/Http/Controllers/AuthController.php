@@ -31,7 +31,7 @@ class AuthController extends Controller
 
         $validator = Validator::make($attemptCredentials, [
             'username' => ['required', Rule::exists('users')],
-            'password' => 'required',
+            'password' => ['required', 'string', 'min:6', 'regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/'],
         ]);
 
         if ($validator->fails()) {
