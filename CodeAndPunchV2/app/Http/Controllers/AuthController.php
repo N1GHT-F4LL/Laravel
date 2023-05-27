@@ -58,6 +58,8 @@ class AuthController extends Controller
         //nfconfig
         //dd($request->all());
         // Validate signup data
+        Log::info('Đã gọi phương thức signup');
+        ///////////////////////////////////
         $this->validate($request, [
             'username' => 'required|unique:users',
             'password' => 'required|min:6',
