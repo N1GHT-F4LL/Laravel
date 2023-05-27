@@ -18,4 +18,9 @@
 
         <button type="submit" class="btn btn-primary">Log In</button>
     </form>
+    @if ($errors->has('error'))
+        <div class="alert alert-danger">
+            {{ $errors->first('error') }}
+        </div>
+    @endif
 @endsection

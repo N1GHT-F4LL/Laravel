@@ -12,7 +12,7 @@
     <h1>Welcome to the Home Page</h1>
 
     @if (Auth::check())
-        <p>Welcome, {{ Auth::user()->name }}!</p>
+        <p>Welcome, {{ Auth::user()->full_name }}!</p>
         <p>Your role: {{ Auth::user()->role }}</p>
         <form action="{{ route('logout') }}" method="POST">
             @csrf
