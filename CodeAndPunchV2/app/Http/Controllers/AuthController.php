@@ -55,6 +55,7 @@ class AuthController extends Controller
 
     public function signup(Request $request)
     {
+        dd($request->all());
         // Validate signup data
         $this->validate($request, [
             'username' => 'required|unique:users',
