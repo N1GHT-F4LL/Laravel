@@ -16,13 +16,22 @@
             <input type="password" id="password" name="password" class="form-control" required>
         </div>
 
+        <div class="form-group">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="remember" name="remember">
+                <label class="form-check-label" for="remember">
+                    Remember Me
+                </label>
+            </div>
+        </div>
+
         <button type="submit" class="btn btn-primary">Log In</button>
     </form>
     @if ($errors->any())
         <div class="alert alert-danger">
             <ul>
                 @foreach ($errors->all() as $error)
-                    <li>@safe($error)</li>
+                    <li>{!! $error !!}</li>
                 @endforeach
             </ul>
         </div>
