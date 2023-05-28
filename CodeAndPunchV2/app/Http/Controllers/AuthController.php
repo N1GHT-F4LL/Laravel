@@ -14,26 +14,33 @@ class AuthController extends Controller
 {
     public function showLoginForm()
     {
+        if (Auth::check()) {
+            return redirect()->route('home');
+        }
         return view('auth.login');
     }
 
     public function login(Request $request)
     {
+        // Validate the username and password fields
         $credentials = $request->validate([
             'username' => 'required',
             'password' => 'required',
         ]);
 
+        // Prepare the credentials for login attempt
         $attemptCredentials = [
             'username' => $credentials['username'],
             'password' => $credentials['password'],
         ];
 
+        // Validate the credentials using custom validation rules
         $validator = Validator::make($attemptCredentials, [
             'username' => ['required', Rule::exists('users')],
             'password' => ['required', 'string', 'min:6', 'regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/'],
         ]);
 
+        // If validation fails, handle the errors
         if ($validator->fails()) {
             $errors = $validator->errors();
 
@@ -41,6 +48,7 @@ class AuthController extends Controller
                 $passwordErrors = $errors->get('password');
 
                 foreach ($passwordErrors as $passwordError) {
+                    // Modify the error messages for password field as needed
                     if ($passwordError === 'The password must be at least 6 characters.') {
                         $errors->add('password', 'The password must be at least 6 characters and meet the required format.');
                     } elseif ($passwordError === 'The password format is invalid.') {
@@ -55,13 +63,21 @@ class AuthController extends Controller
                 ->withInput();
         }
 
-        if (Auth::attempt($attemptCredentials)) {
+        // Check if "Remember Me" option is selected
+        $remember = $request->filled('remember');
+
+        // Attempt to authenticate the user with the provided credentials
+        if (Auth::attempt($attemptCredentials, $remember)) {
             return redirect()->route('home');
-        } else {
-            return redirect()
-                ->back()
-                ->withErrors(['error' => 'Invalid login credentials']);
         }
+
+        // Failed login attempt, redirect back to the login page with error message
+        return redirect()
+            ->back()
+            ->withErrors([
+                'message' => 'Invalid credentials.',
+            ])
+            ->withInput();
     }
 
     public function showSignupForm()
@@ -79,31 +95,31 @@ class AuthController extends Controller
             ]);
         } catch (\Illuminate\Validation\ValidationException $e) {
             Log::error('Validation failed: ' . $e->getMessage());
-            // Xử lý ngoại lệ validation nếu cần thiết
-            // Ví dụ: Đưa ra thông báo lỗi cho người dùng
+            // Handle validation exception if necessary
+            // Example: Show error message to the user
             return redirect()
                 ->back()
                 ->withErrors($e->errors())
                 ->withInput();
         }
 
-        // Tiếp tục xử lý khi dữ liệu đã được validate
+        // Continue with processing the data once it has been validated
 
-        // Tạo người dùng mới
+        // Create a new user
         $user = User::create([
             'username' => $request->input('username'),
             'password' => Hash::make($request->input('password')),
             'role' => $request->input('role'),
         ]);
 
-        // Gán giá trị mặc định cho full_name
+        // Set a default value for full_name
         $user->full_name = $user->username;
         $user->save();
 
-        // Đăng nhập người dùng
+        // Log in the user
         Auth::login($user);
 
-        // Chuyển hướng đến trang chủ
+        // Redirect to the home page
         return redirect()->route('home');
     }
 

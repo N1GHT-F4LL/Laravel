@@ -18,25 +18,20 @@ class CreateUsersTable extends Migration
                 ->nullable();
             $table
                 ->string('email')
-                ->nullable()
-                ->change();
+                ->default('')
+                ->nullable();
             $table
                 ->string('phone')
                 ->default('')
                 ->nullable();
             $table->enum('role', ['student', 'teacher', 'admin'])->default('student');
             $table->timestamps();
+            $table->rememberToken();
         });
     }
 
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table
-                ->string('email')
-                ->nullable(false)
-                ->change();
-        });
         Schema::dropIfExists('users');
     }
 }
