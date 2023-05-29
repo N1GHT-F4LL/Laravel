@@ -32,8 +32,8 @@
         </li>
     </ul>
 
-    @if (auth()->check() && (auth()->user()->isAdmin() || auth()->user()->isTeacher()))
-        @if (auth()->user()->isAdmin() || (auth()->user()->isTeacher() && !$user->isAdmin()))
+    @if (auth()->check())
+        @if (auth()->user()->isAdmin() || (auth()->user()->isTeacher() && $user->isStudent()))
             <form action="{{ route('users.edit', ['user' => $user->id]) }}" method="GET">
                 @csrf
                 <button type="submit">Edit</button>
@@ -43,8 +43,27 @@
                 @method('DELETE')
                 <button type="submit">Delete</button>
             </form>
+        @elseif (auth()->user()->id == $user->id)
+            <form action="{{ route('users.edit', ['user' => $user->id]) }}" method="GET">
+                @csrf
+                <button type="submit">Edit</button>
+            </form>
+            @if (auth()->user()->isAdmin() || (auth()->user()->isTeacher() && $user->isStudent()))
+                <form action="{{ route('users.destroy', ['user' => $user->id]) }}" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit">Delete</button>
+                </form>
+            @endif
         @endif
     @endif
+
 </body>
 
 </html>
+
+tôi là user a, b là user profile mà tôi đang xem
+nếu tôi xem profile của user b là profile user a thì được phép chỉnh sửa (a.id = b.id thì được phép sửa và xoá)
+nếu tôi là admin thì được sửa và xoá tất cả (a.role = 'admin' thì được phép sửa và xoá, không cần quan tâm b là gì)
+nếu tôi là teacher thì được sửa và xoá của student(a.role = teacher && b.role = student thì được phép sửa và xoá)
+
