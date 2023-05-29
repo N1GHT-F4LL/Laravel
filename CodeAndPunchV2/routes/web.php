@@ -25,10 +25,9 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 // Route cho quản lý thông tin người dùng
 Route::prefix('users')->group(function () {
-   Route::get('/', [UserController::class, 'index'])->name('users.index');
-   Route::get('/profile/{user}', [UserController::class, 'profile'])->name('users.profile');
-
    Route::middleware('auth')->group(function () {
+      Route::get('/', [UserController::class, 'index'])->name('users.index');
+      Route::get('/profile/{user}', [UserController::class, 'profile'])->name('users.profile');
       Route::get('/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
       Route::put('/{user}', [UserController::class, 'update'])->name('users.update');
       Route::delete('/{user}', [UserController::class, 'destroy'])->name('users.destroy');

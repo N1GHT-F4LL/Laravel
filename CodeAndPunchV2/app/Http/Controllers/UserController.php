@@ -10,11 +10,12 @@ class UserController extends Controller
     public function index()
     {
         // Lấy danh sách người dùng từ cơ sở dữ liệu
-        $users = User::all();
-
-        // Trả về view hiển thị danh sách người dùng
-        return view('users.index', compact('users'));
+        $users = User::select('id', 'username', 'role')->get();
+        // Hiển thị danh sách người dùng và dừng thực thi
+        //dd($users);
+        return view('users.index', ['users' => $users]);
     }
+
 
     public function create()
     {
@@ -31,11 +32,21 @@ class UserController extends Controller
         // ...
     }
 
-    public function profile(User $user)
+    public function profile($user_id)
     {
-        // Trả về view hiển thị thông tin chi tiết người dùng
-        // ...
+        // Lấy thông tin người dùng từ cơ sở dữ liệu
+        $user = User::find($user_id);
+
+        // Kiểm tra xem người dùng có tồn tại không
+        if (!$user) {
+            // Nếu không tìm thấy người dùng, điều hướng về trang 404 hoặc thông báo lỗi tương ứng
+            abort(404);
+        }
+
+        // Trả về view profile.blade.php với dữ liệu người dùng
+        return view('users.profile', ['user' => $user]);
     }
+
 
     public function edit(User $user)
     {
@@ -51,13 +62,16 @@ class UserController extends Controller
         // Trả về view hoặc redirect về danh sách người dùng
         // ...
     }
-
     public function destroy(User $user)
     {
-        // Xử lý xoá người dùng khỏi cơ sở dữ liệu
-        // ...
-
-        // Trả về view hoặc redirect về danh sách người dùng
-        // ...
+        // Kiểm tra xem người dùng hiện tại có quyền xoá tài khoản hay không
+        if (auth()->user()->isAdmin() || (auth()->user()->isTeacher() && $user->isStudent())) {
+            // Xoá người dùng
+            $user->delete();
+            // Redirect về danh sách người dùng hoặc trang khác tùy theo yêu cầu của bạn
+            return redirect()->route('users.index')->with('success', 'User deleted successfully');
+        }
+        // Nếu không có quyền, redirect về trang không có quyền truy cập hoặc trang khác tùy theo yêu cầu của bạn
+        return redirect()->route('access-denied')->with('error', 'Access denied');
     }
 }
