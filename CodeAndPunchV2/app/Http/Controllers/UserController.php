@@ -101,9 +101,9 @@ class UserController extends Controller
             // Xoá người dùng
             $user->delete();
             // Redirect về danh sách người dùng hoặc trang khác tùy theo yêu cầu của bạn
-            return redirect()->route('users.index')->with('smg', 'User deleted successfully');
+            return redirect()->route('users.index')->with('success', 'User deleted successfully');
         }
         // Nếu không có quyền, redirect về trang không có quyền truy cập hoặc trang khác tùy theo yêu cầu của bạn
-        return redirect()->route('users.index')->with('smg', 'Access denied');
+        return redirect()->route('access-denied')->with('error', 'Access denied');
     }
 }
