@@ -27,9 +27,11 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::prefix('users')->group(function () {
    Route::middleware('auth')->group(function () {
       Route::get('/', [UserController::class, 'index'])->name('users.index');
+      Route::get('/create', [UserController::class, 'create'])->name('users.create')->middleware('auth', 'role:admin,teacher');
       Route::get('/profile/{user}', [UserController::class, 'profile'])->name('users.profile');
       Route::get('/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
       Route::put('/{user}', [UserController::class, 'update'])->name('users.update');
+      Route::post('/', [UserController::class, 'store'])->name('users.store')->middleware('auth', 'role:admin,teacher');
       Route::delete('/{user}', [UserController::class, 'destroy'])->name('users.destroy');
    });
 });

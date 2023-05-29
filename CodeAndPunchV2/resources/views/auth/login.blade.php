@@ -27,6 +27,11 @@
 
         <button type="submit" class="btn btn-primary">Log In</button>
     </form>
+
+    <div class="signup-link">
+        Don't have an account? <a href="{{ route('signup') }}">Sign Up</a>
+    </div>
+
     @if ($errors->any())
         <div class="alert alert-danger">
             <ul>

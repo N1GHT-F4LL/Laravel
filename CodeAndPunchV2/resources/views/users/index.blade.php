@@ -11,6 +11,14 @@
 <body>
     <h1>User List</h1>
     <ul>
+        @if (Auth::check() && (Auth::user()->isAdmin() || Auth::user()->isTeacher()))
+            <a href="{{ route('users.create') }}" class="btn btn-primary">Add User</a>
+        @endif
+        @if ($msg)
+            <div class="alert alert-success">
+                {{ $msg }}
+            </div>
+        @endif
         @foreach ($users as $user)
             <li>
                 <p>Username: <a href="{{ route('users.profile', ['user' => $user->id]) }}">{{ $user->username }}</a></p>

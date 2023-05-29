@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
@@ -36,7 +37,7 @@ class AuthController extends Controller
 
         // Validate the credentials using custom validation rules
         $validator = Validator::make($attemptCredentials, [
-            'username' => ['required', Rule::exists('users')],
+            'username' => ['required', Rule::exists('users'), 'regex:/^[a-zA-Z0-9]+$/'],
             'password' => ['required', 'string', 'min:6', 'regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/'],
         ]);
 
@@ -89,11 +90,12 @@ class AuthController extends Controller
     {
         try {
             $request->validate([
-                'username' => 'required|unique:users',
+                'username' => ['required', 'regex:/^[a-zA-Z0-9]+$/', 'unique:users'],
                 'password' => ['required', 'min:6', 'regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/'],
-                'role' => 'required|in:admin,teacher,student',
+                'role' => 'required|in:student',
+                //force new user role is student
             ]);
-        } catch (\Illuminate\Validation\ValidationException $e) {
+        } catch (ValidationException $e) {
             Log::error('Validation failed: ' . $e->getMessage());
             // Handle validation exception if necessary
             // Example: Show error message to the user

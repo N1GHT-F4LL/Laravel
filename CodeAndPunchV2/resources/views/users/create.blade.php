@@ -1,9 +1,9 @@
 @extends('auth')
 
-@section('title', 'Sign Up')
+@section('title', 'Create User')
 
 @section('content')
-    <form method="POST" action="{{ route('signup.post') }}">
+    <form method="POST" action="{{ route('users.store') }}">
         @csrf
 
         <div class="form-group">
@@ -26,13 +26,8 @@
             </select>
         </div>
 
-        <button type="submit" class="btn btn-primary">Sign Up</button>
+        <button type="submit" class="btn btn-primary">Create User</button>
     </form>
-
-    <div class="login-link">
-        Already have an account? <a href="{{ route('login') }}">Log In</a>
-    </div>
-
     @if ($errors->any())
         <div class="alert alert-danger">
             <ul>
