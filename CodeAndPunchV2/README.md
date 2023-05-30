@@ -38,7 +38,7 @@ Viết 1 trang web quản lý lớp học, gồm 2 role chính: giáo viên, sin
 -   [ ] Create challenge
 -   [ ] Submit student challenge answers
 
-## The project uses resources
+## Resources
 
 -   [PHP 8.0.28](https://www.php.net/downloads.php#:~:text=Old%20Stable%20PHP%208.0.28)
 -   [Laravel 9.52.7](https://laravel.com/docs/10.x)
