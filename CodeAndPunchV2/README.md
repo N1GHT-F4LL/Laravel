@@ -37,6 +37,11 @@ Viết 1 trang web quản lý lớp học, gồm 2 role chính: giáo viên, sin
 - [ ] Create challenge
 - [ ] Submit student challenge answers
 
+## The project uses resources
+[PHP 8.0.28](https://www.php.net/downloads.php#:~:text=Old%20Stable%20PHP%208.0.28)
+[Laravel 9.52.7](https://laravel.com/docs/10.x)
+[ChatGPT](https://openai.com/product/chatgpt)
+
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
 <p align="center">
