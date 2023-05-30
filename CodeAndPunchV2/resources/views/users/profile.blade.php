@@ -53,6 +53,7 @@
             {{ session('error') }}
         </div>
     @endif
+    <a href="{{ route('users.index') }}">Manage Users</a></li>
 </body>
 
 </html>

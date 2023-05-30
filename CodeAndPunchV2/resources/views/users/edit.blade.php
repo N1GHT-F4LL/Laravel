@@ -2,6 +2,18 @@
 
 @section('title', 'Edit User')
 
+@if (session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+@endif
+
+@if (session('error'))
+    <div class="alert alert-danger">
+        {{ session('error') }}
+    </div>
+@endif
+
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
@@ -38,10 +50,23 @@
                                     value="{{ $user->full_name }}">
                             </div>
 
+                            @if (Auth::user()->isAdmin())
+                                <div class="form-group">
+                                    <label for="role">Role</label>
+                                    <select class="form-control" id="role" name="role">
+                                        <option value="student" {{ $user->role === 'student' ? 'selected' : '' }}>Student
+                                        </option>
+                                        <option value="teacher" {{ $user->role === 'teacher' ? 'selected' : '' }}>Teacher
+                                        </option>
+                                        <option value="admin" {{ $user->role === 'admin' ? 'selected' : '' }}>Admin
+                                        </option>
+                                    </select>
+                                </div>
+                            @endif
+
                             <!-- Button Submit -->
                             <button type="submit" class="btn btn-primary">Save</button>
                         </form>
-
                     </div>
                 </div>
             </div>

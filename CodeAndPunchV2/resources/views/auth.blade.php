@@ -23,7 +23,7 @@
             </div>
         </div>
     </div>
-
+    <a href="{{ route('users.index') }}">Manage Users</a></li>
     <script src="{{ asset('js/app.js') }}"></script>
 </body>
 
