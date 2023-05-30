@@ -28,7 +28,7 @@
 -   [x] Session
 -   [x] List user, all users can see each other's profiles
 -   [x] Add user, new user required student role
--   [ ] Edit user, user can edit their profile, or if user is a teacher then can edit student user, admin can edit all users
+-   [x] Edit user, user can edit their profile, or if user is a teacher then can edit student user, admin can edit all users
 -   [x] Delete user, user can delete their profile, or if user is a teacher then can delete student user, admin can delete all users
 -   [x] View profile
 -   [ ] Upload homework
