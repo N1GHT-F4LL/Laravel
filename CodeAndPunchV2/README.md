@@ -1,3 +1,42 @@
+## Code and punch event - EHC Ethical Hacker Club
+
+Viết 1 trang web quản lý lớp học, gồm 2 role chính: giáo viên, sinh viên.
+
+-   Thông tin của mỗi role gồm các trường cơ bản: tên đăng nhập, mật khẩu, họ tên, email, số điện thoại.
+
+*   Quản lý thông tin:
+
+-   Giáo viên có thể thêm, sửa, xoá các thông tin của các sinh viên và của chính mình.
+-   Sinh viên có thể thêm, sửa, thông tin của chính mình trừ tên đăng nhập và họ tên.
+-   1 người dùng bất kỳ được phép xem danh sách các người dùng trên website và xem thông tin chi tiết của 1 người khác.
+
+\*Chức năng giao bài, trả bài:
+
+-   Giáo viên có thể upload file bài tập lên. Các sinh viên có thể xem danh sách bài tập và tải file bài tập về.
+-   Sinh viên có thể upload bài làm tương ứng với bài tập được giao. Chỉ giáo viên mới có thể nhìn thấy danh sách bài làm này.
+
+*   Chức năng cho phép giáo viên tổ chức 1 trò chơi giải đố:
+
+-   Giáo viên tạo challenge, trong đó cần thực hiện: upload lên 1 file txt có nội dung là 1 bài thơ, văn,... tên file được viết dưới định dạng không dấu và các từ các nhau bởi 1 khoảng trắng.
+    Sau đó nhập gợi ý về quyển sách và submit. (đáp án chính là tên file mà giáo viên upload lên. Yêu cầu: không lưu đáp án ra file, Database,... ).
+-   Sinh viên xem gợi ý và nhập lại đáp án. Khi sinh viên nhập đúng thì trả về nội dung bài thơ, văn,... trong file đáp án
+
+## Last features :
+- [X] Signin
+- [X] Lignup
+- [X] Session
+- [X] List user, all users can see each other's profiles
+- [X] Add user, new user required student role
+- [ ] Edit user, user can edit their profile, or if user is a teacher then can edit student user, admin can edit all users
+- [X] Delete user, user can delete their profile, or if user is a teacher then can delete student user, admin can delete all users
+- [X] View profile
+- [ ] Upload homework
+- [ ] Download homework
+- [ ] Submit student homework answers
+- [ ] View student homework answers
+- [ ] Create challenge
+- [ ] Submit student challenge answers
+
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
 <p align="center">
