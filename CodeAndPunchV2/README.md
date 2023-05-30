@@ -62,6 +62,10 @@
 -   [Laravel 9.52.7](https://laravel.com/)
 -   [ChatGPT](https://openai.com/product/chatgpt)
 
+## Support
+
+-   [FPTU Ethical Hackers Club](https://github.com/FPTU-Ethical-Hackers-Club)
+
 ## License
 
 This project uses open source software licensed under [MIT license](https://opensource.org/licenses/MIT).
