@@ -39,6 +39,19 @@ Viết 1 trang web quản lý lớp học, gồm 2 role chính: giáo viên, sin
 -   [ ] Submit student challenge answers
 
 ## Setup
+```
+    # This code is used to run web on local
+    # Start Apache and MySQL on XAMPP
+    # Start terminal in CodeAndPunchV2 directory
+    
+    # Prepare database by using migrate
+    php artisan migrate
+    
+    # Start server
+    php artisan serve
+    
+    # Website can be access at: http://localhost:8000/
+```
 
 ## Resources
 
