@@ -72,15 +72,15 @@ This project uses open source software licensed under [MIT license](https://open
 
 ## Accoutn for test
 
-'''student
+```student
 student
 Abc123@
-'''
+```
 
-'''teacher
+```teacher
 teacher
 Abc123@
-'''
+```
 
 ## Note
 
