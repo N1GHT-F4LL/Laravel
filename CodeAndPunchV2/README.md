@@ -69,3 +69,22 @@
 ## License
 
 This project uses open source software licensed under [MIT license](https://opensource.org/licenses/MIT).
+
+## Accoutn for test
+
+'''student
+student
+Abc123@
+'''
+
+'''teacher
+teacher
+Abc123@
+'''
+
+## Note
+
+-   Username only contain a lowercase letter or an uppercase letter and digit.
+-   Password contains at least one lowercase letter, one uppercase letter, one digit, and one special character from the set [@, $, !, %, *, ?, &].
+-   Only admins can edit roles
+-   For new accounts, the default role is student
