@@ -92,8 +92,6 @@ class AuthController extends Controller
             $request->validate([
                 'username' => ['required', 'regex:/^[a-zA-Z0-9]+$/', 'unique:users'],
                 'password' => ['required', 'min:6', 'regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/'],
-                'role' => 'required|in:student',
-                //force new user role is student
             ]);
         } catch (ValidationException $e) {
             Log::error('Validation failed: ' . $e->getMessage());
@@ -105,13 +103,14 @@ class AuthController extends Controller
                 ->withInput();
         }
 
+        //force new user role is student
         // Continue with processing the data once it has been validated
 
         // Create a new user
         $user = User::create([
             'username' => $request->input('username'),
             'password' => Hash::make($request->input('password')),
-            'role' => $request->input('role'),
+            'role' => 'student', // Đặt giá trị "student" cho trường "role"
         ]);
 
         // Set a default value for full_name

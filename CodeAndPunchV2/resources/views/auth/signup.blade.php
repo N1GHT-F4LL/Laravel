@@ -3,36 +3,35 @@
 @section('title', 'Sign Up')
 
 @section('content')
-    <form method="POST" action="{{ route('signup.post') }}">
-        @csrf
-
-        <div class="form-group">
-            <label for="username">Username</label>
-            <input type="text" id="username" name="username" class="form-control" required>
+    <div>
+        <div>
+            <form method="POST" action="{{ route('signup.post') }}">
+                @csrf
+                <div class="form-group">
+                    <input class="input" name="username" type="text" id="username" required=""
+                        autocomplete="new-password">
+                    <label class="label">Username</label>
+                </div>
+                <div class="form-group">
+                    <input class="input" name="password" type="password" id="password" required=""
+                        autocomplete="new-password">
+                    <label class="label">Password</label>
+                </div>
+                <div class="button-container">
+                    <button type="submit" class="btn btn-primary">Sign Up</button>
+                </div>
+            </form>
         </div>
 
-        <div class="form-group">
-            <label for="password">Password</label>
-            <input type="password" id="password" name="password" class="form-control" required>
+        <div>
+            <form action="{{ route('login') }}" method="GET">
+                <div class="button-container">
+                    <div>or</div>
+                    <button type="submit" class="btn btn-primary">Login</button>
+                </div>
+            </form>
         </div>
-
-        <div class="form-group">
-            <label for="role">Role</label>
-            <select id="role" name="role" class="form-control" required>
-                <option value="">Select Role</option>
-                <option value="admin">Admin</option>
-                <option value="teacher">Teacher</option>
-                <option value="student" selected>Student</option>
-            </select>
-        </div>
-
-        <button type="submit" class="btn btn-primary">Sign Up</button>
-    </form>
-
-    <div class="login-link">
-        Already have an account? <a href="{{ route('login') }}">Log In</a>
     </div>
-
     @if ($errors->any())
         <div class="alert alert-danger">
             <ul>
