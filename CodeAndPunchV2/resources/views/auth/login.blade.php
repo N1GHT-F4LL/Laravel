@@ -29,7 +29,9 @@
                 </div>
             </div>
         </div>
-        <button type="submit" class="btn btn-primary">Log In</button>
+        <div class="button-container">
+            <button type="submit" class="btn btn-primary">Log In</button>
+        </div>
     </form>
     <div>
         <form action="{{ route('signup') }}" method="GET">

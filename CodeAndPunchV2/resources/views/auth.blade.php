@@ -11,22 +11,22 @@
 
 <body>
     <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="container">
-                    <div class="card">
-                        <div class="card-header">@yield('title')</div>
-                        <br></br>
-                        <div class="card-body">
-                            @yield('content')
-                        </div>
+        <div class="card">
+            <div class="card-header">@yield('title')</div>
+            <div class="card-body">
+                @yield('content')
+                @auth
+                    <div>
+                        <form action="{{ route('users.index') }}" method="GET">
+                            <div class="button-container manage-user-button">
+                                <button type="submit" class="btn btn-primary">Manage Users</button>
+                            </div>
+                        </form>
                     </div>
-                </div>
+                @endauth
             </div>
         </div>
     </div>
-    <a href="{{ route('users.index') }}">Manage Users</a></li>
-    <script src="{{ asset('js/app.js') }}"></script>
 </body>
 
 </html>

@@ -12,6 +12,9 @@
 <body>
     <h1>User List</h1>
     <ul>
+        <div>
+            <a href="{{ route('home') }}" class="btn btn-primary">Home Page</a>
+        </div>
         @if (Auth::check() && (Auth::user()->isAdmin() || Auth::user()->isTeacher()))
             <a href="{{ route('users.create') }}" class="btn btn-primary">Add User</a>
         @endif
