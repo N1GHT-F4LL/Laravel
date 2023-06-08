@@ -21,23 +21,20 @@
         @method('PUT')
         <!-- Các trường chỉnh sửa thông tin người dùng -->
         <div class="form-group">
-            <label for="email">Email</label>
-            <input type="email" class="form-control" id="email" name="email" value="{{ $user->email }}">
+            <input class="input" name="email" type="email" id="email" value="{{ $user->email }}">
+            <label class="label">Email</label>
         </div>
-
         <div class="form-group">
-            <label for="phone">Phone</label>
-            <input type="text" class="form-control" id="phone" name="phone" value="{{ $user->phone }}">
+            <input class="input" name="phone" type="phone" id="phone" value="{{ $user->phone }}">
+            <label class="label">Phone</label>
         </div>
-
         <div class="form-group">
-            <label for="password">Password</label>
-            <input type="password" class="form-control" id="password" name="password">
+            <input class="input" name="password" type="password" id="password" autocomplete="new-password">
+            <label class="label">Password</label>
         </div>
-
         <div class="form-group">
-            <label for="full_name">Full Name</label>
-            <input type="text" class="form-control" id="full_name" name="full_name" value="{{ $user->full_name }}">
+            <input class="input" name="full_name" type="text" id="full_name" value="{{ $user->full_name }}">
+            <label class="label">Fullname</label>
         </div>
 
         @if (Auth::user()->isAdmin())
@@ -55,6 +52,8 @@
         @endif
 
         <!-- Button Submit -->
-        <button type="submit" class="btn btn-primary">Save</button>
+        <div class="button-container">
+            <button type="submit" class="btn btn-primary">Save</button>
+        </div>
     </form>
 @endsection
